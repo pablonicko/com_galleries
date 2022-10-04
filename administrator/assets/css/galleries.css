@@ -1,0 +1,39 @@
+.icon-48-galleries {
+      background-image: url(../images/l_galleries.png);
+      padding-left:60px!important;
+}
+
+.icon-48-gallery {
+      background-image: url(../images/l_galleries.png);
+      padding-left:60px!important;
+}
+
+.color-box-galleries { 
+      float: left;      
+      width: 15px;      
+      height: 15px;      
+      margin-right: 5px;      
+      border: 1px solid rgba(0, 0, 0, .2);
+}
+
+.icon-48-orders {
+      background-image: url(../images/l_orders.png);
+      padding-left:60px!important;
+}
+
+.icon-48-order {
+      background-image: url(../images/l_orders.png);
+      padding-left:60px!important;
+}
+
+.color-box-orders { 
+      float: left;      
+      width: 15px;      
+      height: 15px;      
+      margin-right: 5px;      
+      border: 1px solid rgba(0, 0, 0, .2);
+}
+
+.other-filters{
+    padding: 0 14px;
+}
