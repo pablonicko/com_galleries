@@ -34,27 +34,41 @@ class GalleryController extends FormController
      */
     public function save($key = NULL, $urlVar = NULL)
     {
-        //jimport('joomla.filesystem.folder');
-        //jimport('joomla.filesystem.file');
+
+        parent::save();
 
         $jinput = Factory::getApplication()->input;
         $datag = $jinput->post->get('jform', null, 'array');
+        
+        
+        $file_images = $jinput->files->get('jform');
+        $db = Factory::getDBO();
+
+        if (isset($datag['id']) && $datag['id'] === "") {
+            $query = $db->getQuery(true)
+                ->select('max(id)')
+                ->from('#__galleries');
+            $db->setQuery($query);
+            $datag['id'] = $db->loadResult();
+        }
+
         $foldergallery = "/media/com_galleries/galleries/" . $datag['id'];
         // Create the uploads folder if not exists in /images folder
         if ( !Folder::exists(JPATH_SITE . $foldergallery) ) {
                Folder::create(JPATH_SITE . $foldergallery);
         }
-        
-        $file_images = $jinput->files->get('jform');
-        $db = Factory::getDBO();
 
         if (!(count($file_images['gallery_images']) == 1 && $file_images['gallery_images'][0]["name"] == ''))
         {
             foreach ($file_images['gallery_images'] as &$file) 
             {
                 $filename = File::makeSafe($file['name']);
+                $filename = str_ireplace('.jpg', '.webp', $filename);
+                $filename = str_ireplace('.png', '.webp', $filename);
+                $filename = str_ireplace('.jpeg', '.webp', $filename);
                 $image_url = $foldergallery . DIRECTORY_SEPARATOR . $filename;
                 File::upload( $file['tmp_name'], JPATH_SITE . $image_url );
+                $this->create_mask(JPATH_SITE . $image_url);
                 // Create a new query object.
                 $query = $db->getQuery(true);
                 // table columns.
@@ -93,7 +107,7 @@ class GalleryController extends FormController
             }
         }
 
-        parent::save();
+        
     }
 
     public function remove()
@@ -151,5 +165,48 @@ class GalleryController extends FormController
 
         echo $response;
 
+    }
+
+    public function create_mask($originalimageurl){
+        // Load the watermark and the picture to apply it
+        $type = exif_imagetype($originalimageurl);
+        switch ($type) { 
+            case 1 : 
+                $im = imagecreatefromgif($originalimageurl); 
+            break; 
+            case 2 : 
+                $im = imagecreatefromjpeg($originalimageurl); 
+            break; 
+            case 3 : 
+                $im = imagecreatefrompng($originalimageurl);
+            break; 
+        } 
+
+        // Primero crearemos nuestra imagen de la estampa manualmente desde GD
+        //$estampa = imagecreatetruecolor(100, 70);
+        //imagefilledrectangle($estampa, 0, 0, 99, 69, 0x0000FF);
+        //imagefilledrectangle($estampa, 9, 9, 90, 60, 0xFFFFFF);
+        //imagestring($estampa, 5, 20, 20, 'MiPrimerBook', 0x0000FF);
+        //imagestring($estampa, 3, 20, 40, '(c) 2015', 0x0000FF);
+            
+        $watermark = imagecreatefrompng(JPATH_SITE .'/media/com_galleries/watermark.png');
+        // Set the margins for the watermark and get the hight and width of the image into the watermark
+        $margin_right = 0;
+        $margin_bottom = 0;
+        $sx = imagesx($watermark);
+        $sy = imagesy($watermark);
+        $dest_x = floor(imagesx($im)/2) - floor($sx/2) - $margin_right;
+        $dest_y = floor(imagesy($im)/2) - floor($sy/2) - $margin_bottom;
+        if ($dest_y < 0){
+            $dest_y = imagesy($im) - $sy;
+        }   
+        // Merge the stamp with our photo with an opacity of 50%
+        //imagecopymerge($im, $watermark, imagesx($im) - $sx - $margin_right, imagesy($im) - $sy - $margin_bottom, 0, 0, imagesx($watermark), imagesy($watermark), 50);
+        imagecopy($im, $watermark, $dest_x, $dest_y, 0, 0, imagesx($watermark), imagesy($watermark));
+        // Guardar la imagen en un archivo y liberar memoria
+        #imagepng($im, $originalimageurl);
+        imagewebp($im, $originalimageurl);
+        imagedestroy($im);
+        imagedestroy($watermark);
     }
 }

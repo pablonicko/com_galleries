@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_GALLERIES_TITLE_LIST_VIEW_GALLERIES" option="View">
+        <message>
+                        <![CDATA[COM_GALLERIES_TITLE_LIST_VIEW_GALLERIES_DESC]]>
+        </message>
+	</layout>
+	
+</metadata>

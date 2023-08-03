@@ -15,9 +15,25 @@
       "uri": "com_galleries/admin-galleries.css"
     },
     {
+      "name": "com_galleries.ga-styles",
+      "type": "style",
+      "uri": "com_galleries/ga-styles.css"
+    },
+    {
       "name": "com_galleries.admin",
       "type": "script",
       "uri": "com_galleries/admin.js",
+      "dependencies": [
+        "jquery"
+      ],
+      "attributes": {
+        "defer": true
+      }
+    },
+    {
+      "name": "com_galleries.ga-scripts",
+      "type": "script",
+      "uri": "com_galleries/ga-scripts.js",
       "dependencies": [
         "jquery"
       ],
