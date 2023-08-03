@@ -1,0 +1,50 @@
+{
+  "$schema": "https://developer.joomla.org/schemas/json-schema/web_assets.json",
+  "name": "com_galleries",
+  "version": "1.0.0",
+  "license": "GNU General Public License version 2 or later; see LICENSE.txt",
+  "assets": [
+    {
+      "name": "com_galleries.admin",
+      "type": "style",
+      "uri": "com_galleries/admin.css"
+    },
+    {
+      "name": "com_galleries.admin-galleries",
+      "type": "style",
+      "uri": "com_galleries/admin-galleries.css"
+    },
+    {
+      "name": "com_galleries.ga-styles",
+      "type": "style",
+      "uri": "com_galleries/ga-styles.css"
+    },
+    {
+      "name": "com_galleries.admin",
+      "type": "script",
+      "uri": "com_galleries/admin.js",
+      "dependencies": [
+        "jquery"
+      ],
+      "attributes": {
+        "defer": true
+      }
+    },
+    {
+      "name": "com_galleries.ga-scripts",
+      "type": "script",
+      "uri": "com_galleries/ga-scripts.js",
+      "dependencies": [
+        "jquery"
+      ],
+      "attributes": {
+        "defer": true
+      }
+    },
+    {
+        "name": "com_galleries.list",
+        "type": "style",
+        "uri": "com_galleries/list.css"
+    }
+  ]
+}

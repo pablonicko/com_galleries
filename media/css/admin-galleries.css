@@ -1,0 +1,29 @@
+.container{
+    background-color: #ffffff;
+    width: 90%;
+    min-width: 450px;
+    position: relative;
+    margin: 30px auto;
+    padding: 0px 0px;
+    border-radius: 7px;
+}
+#images{
+    width: 100%;
+    position: relative;
+    margin: auto;
+    display: flex;
+    justify-content: space-evenly;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+figure{
+    width: 20%;
+}
+img{
+    width: 100%;
+}
+figcaption{
+    text-align: center;
+    font-size: 2.4vmin;
+    margin-top: 0.5vmin;
+}

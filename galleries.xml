@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="4.0" method="upgrade">
+    <name>com_galleries</name>
+    <creationDate>2022-09-07</creationDate>
+    <copyright>2022 Pablo Tortul</copyright>
+    <license>COM_GALLERIES_XML_LICENCE</license>
+    <author>Pablo Tortul</author>
+    <authorEmail>pablonicko@gmail.com</authorEmail>
+    <authorUrl></authorUrl>
+    <version>1.0.0</version>
+    <description>COM_GALLERIES_XML_DESCRIPTION</description>
+    <namespace path="src">Pablotortul\Component\Galleries</namespace>
+    
+    <install> <!-- Runs on install -->
+        <sql>
+            <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+        </sql>
+    </install>
+    <uninstall> <!-- Runs on uninstall -->
+        <sql>
+            <file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+        </sql>
+    </uninstall>
+
+    <files folder="site">
+        <folder>src</folder>
+        <folder>forms</folder>
+        <folder>tmpl</folder>
+    </files>
+    <media destination="com_galleries" folder="media">
+        <folder>css</folder>
+        <folder>js</folder>
+        <filename>joomla.asset.json</filename>
+    </media>
+    <languages folder="site/languages">
+			<language tag="en-GB">en-GB/com_galleries.ini</language>
+			<language tag="es-ES">es-ES/com_galleries.ini</language>
+    </languages>
+    <administration>
+        <menu>COM_GALLERIES</menu>
+        <submenu>
+			<menu link="option=com_galleries&amp;view=galleries" view="galleries" alt="Galleries/Galleries">COM_GALLERIES_TITLE_GALLERIES</menu>
+            <menu link="option=com_galleries&amp;view=orders" view="orders" alt="Galleries/Orders">COM_GALLERIES_TITLE_ORDERS</menu>
+        </submenu>
+        <files folder="administrator">
+            <filename>access.xml</filename>
+            <filename>config.xml</filename>
+            <folder>forms</folder>
+            <folder>src</folder>
+            <folder>tmpl</folder>
+            <folder>services</folder>
+            <folder>presets</folder>
+            <folder>sql</folder>
+        </files>
+        <languages folder="administrator/languages">
+			<language tag="en-GB">en-GB/com_galleries.ini</language>
+			<language tag="en-GB">en-GB/com_galleries.sys.ini</language>
+			<language tag="es-ES">es-ES/com_galleries.ini</language>
+			<language tag="es-ES">es-ES/com_galleries.sys.ini</language>
+        </languages>
+    </administration>
+    <config>
+        <fields name="params">
+            <fieldset name="component">
+                <field name="save_history" default="0" />
+            </fieldset>
+        </fields>
+    </config>
+    <plugins>
+    </plugins>
+    
+</extension>
